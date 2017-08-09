@@ -26,6 +26,21 @@ class JoinViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let user = NSEntityDescription.insertNewObject(forEntityName: "User", into: context)
+        let request = NSFetchRequest<NSManagedObject>(entityName: "User")
+        var users : [NSManagedObject] = []
+        
+        request.predicate = NSPredicate(format : "id == %@", self.id.text!)
+        
+        do {
+            users = try context.fetch(request)
+            
+            if users.count != 0 {
+                displayErrorMessage(title: "가입 불가한 아이디", message: "이미 존재하는 아이디입니다")
+                return
+            }
+        } catch {
+            print ("could not failed")
+        }
         
         
         user.setValue(id.text!, forKey: "id")

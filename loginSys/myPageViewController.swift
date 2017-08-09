@@ -7,11 +7,23 @@
 //
 
 import UIKit
+import CoreData
 
 class myPageViewController: UIViewController {
+    
+    @IBOutlet weak var id: UILabel!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var age: UILabel!
+    
+    
+    var user : NSManagedObject! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        id.text = user!.value(forKey: "id") as? String
+        name.text = user!.value(forKey: "name") as? String
+        age.text = user!.value(forKey: "age") as? String
 
         // Do any additional setup after loading the view.
     }
